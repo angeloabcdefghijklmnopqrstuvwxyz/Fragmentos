@@ -93,6 +93,7 @@ function updateCameraDisplay() {
         videoClone.autoplay = true;
         videoClone.playsInline = true;
         videoClone.style.width = `${100 / swipeCount}%`; // Divide o espaço igualmente
+        videoClone.style.height = '100%'; // Ocupa toda a altura
         cameraContainer.appendChild(videoClone);
     }
 

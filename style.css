@@ -5,8 +5,8 @@
     flex-wrap: nowrap; /* Impede quebra de linha */
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    padding: 20px;
+    gap: 0; /* Remove o espaço entre os vídeos */
+    padding: 0; /* Remove o padding */
     width: 100vw;
     height: 100vh;
     overflow: hidden;
@@ -16,21 +16,24 @@
 /* Estilo padrão dos vídeos */
 #camera-container video {
     border-radius: 0; /* Remove bordas arredondadas */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: none; /* Remove sombras */
     object-fit: cover; /* Garante que o vídeo preencha o espaço */
 }
 
 /* Layouts específicos */
 .tiktok-layout video {
     width: 100%; /* Vídeo ocupa a tela toda */
+    height: 100%; /* Vídeo ocupa a altura toda */
 }
 
 .reels-layout video {
-    width: 48%;
+    width: 50%; /* Divide a largura igualmente */
+    height: 100%; /* Vídeo ocupa a altura toda */
 }
 
 .shorts-layout video {
-    width: 32%;
+    width: 33.33%; /* Divide a largura igualmente */
+    height: 100%; /* Vídeo ocupa a altura toda */
 }
 
 .kwai-layout {
@@ -39,8 +42,8 @@
 }
 
 .kwai-layout video {
-    width: calc(50% - 5px); /* Calcula o espaço com gap */
-    height: calc(50% - 5px);
+    width: 50%; /* Divide a largura igualmente */
+    height: 50%; /* Divide a altura igualmente */
     border-radius: 0; /* Remove bordas arredondadas */
 }
 
