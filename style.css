@@ -10,11 +10,12 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    background-color: black; /* Define a cor de fundo como preta */
 }
 
 /* Estilo padrão dos vídeos */
 #camera-container video {
-    border-radius: 20px;
+    border-radius: 0; /* Remove bordas arredondadas */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     object-fit: cover; /* Garante que o vídeo preencha o espaço */
 }
@@ -40,7 +41,7 @@
 .kwai-layout video {
     width: calc(50% - 5px); /* Calcula o espaço com gap */
     height: calc(50% - 5px);
-    border-radius: 10px;
+    border-radius: 0; /* Remove bordas arredondadas */
 }
 
 /* Estilo dos botões */
