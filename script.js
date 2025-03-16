@@ -33,15 +33,17 @@ const layouts = ['tiktok-layout', 'reels-layout', 'shorts-layout', 'kwai-layout'
 // Variável para contar quantas vezes o usuário deslizou ou clicou
 let swipeCount = 1; // Começa com 1 para exibir a câmera ao carregar
 
-// Função para detectar toque ou clique
-function handleInteraction() {
-    swipeCount = (swipeCount % 4) + 1; // Alterna entre 1 e 4
-    updateCameraDisplay();
+// Função para detectar deslize para baixo
+function handleSwipe(event) {
+    if (event.deltaY > 0) {
+        swipeCount = (swipeCount % 4) + 1; // Alterna entre 1 e 4
+        updateCameraDisplay();
+    }
 }
 
-// Adiciona eventos de toque e clique
-document.addEventListener('touchstart', handleInteraction); // Para celular
-document.addEventListener('click', handleInteraction); // Para PC
+// Adiciona eventos de deslize para baixo
+document.addEventListener('wheel', handleSwipe); // Para PC
+document.addEventListener('touchmove', handleSwipe); // Para celular
 
 // Função para atualizar a exibição da câmera
 function updateCameraDisplay() {
@@ -58,6 +60,22 @@ function updateCameraDisplay() {
         videoClone.playsInline = true;
         videoClone.style.width = `${100 / swipeCount}%`; // Divide o espaço igualmente
         cameraContainer.appendChild(videoClone);
+    }
+
+    // Adiciona a pergunta "Esse é você?" quando todas as quatro câmeras estiverem visíveis
+    if (swipeCount === 4) {
+        const question = document.createElement('div');
+        question.textContent = "Esse é você?";
+        question.style.position = 'absolute';
+        question.style.top = '10px';
+        question.style.left = '50%';
+        question.style.transform = 'translateX(-50%)';
+        question.style.fontSize = '24px';
+        question.style.color = 'white';
+        question.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        question.style.padding = '10px';
+        question.style.borderRadius = '10px';
+        cameraContainer.appendChild(question);
     }
 }
 

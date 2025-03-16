@@ -1,5 +1,6 @@
 /* Estilo do contêiner da câmera */
 #camera-container {
+    position: relative; /* Permite posicionamento absoluto dos elementos filhos */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
