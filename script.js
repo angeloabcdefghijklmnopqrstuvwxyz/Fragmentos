@@ -8,15 +8,29 @@ video.autoplay = true;
 video.playsInline = true; // Evita problemas no iOS
 cameraContainer.appendChild(video);
 
-// Conjunto de fontes para a frase
+// Conjunto de fontes e cores para as frases
 const fonts = [
     "'Courier New', Courier, monospace",
     "Arial, sans-serif",
     "'Times New Roman', Times, serif",
     "'Comic Sans MS', cursive, sans-serif",
-    "'Lucida Console', Monaco, monospace",
-    "'Verdana', Geneva, sans-serif",
-    "'Georgia', serif"
+    "'Lucida Console', Monaco, monospace"
+];
+const colors = [
+    'white',  // Fundo branco
+    'black',  // Fundo preto
+    '#0000ff',  // Azul forte de TV de tubo
+    '#ff1493', // Rosa mais forte
+    '#00ff00'  // Verde mais claro
+];
+
+// Conjunto de cores de texto para fundos claros
+const textColors = [
+    'black',  // Texto preto para fundo claro (usado para fundo branco)
+    'white',  // Texto branco para outros fundos
+    'white',  // Texto branco para fundo azul
+    'white',  // Texto branco para fundo rosa
+    'black'   // Texto preto para fundo verde
 ];
 
 // Função para acessar a câmera
@@ -44,6 +58,7 @@ const layouts = ['tiktok-layout', 'reels-layout', 'shorts-layout', 'kwai-layout'
 // Variável para contar quantas vezes o usuário deslizou ou clicou
 let swipeCount = 1; // Começa com 1 para exibir a câmera ao carregar
 let questionActive = false; // Indica se a tela de pergunta está ativa
+let inFinalPhase = false; // Indica se estamos na fase final
 
 // Variáveis para armazenar a posição inicial do toque
 let touchStartY = 0;
@@ -51,7 +66,7 @@ let touchEndY = 0;
 
 // Função para detectar deslize para baixo
 function handleSwipe(event) {
-    if (event.deltaY > 0 && !questionActive) { // Só permite deslizar se a tela de pergunta não estiver ativa
+    if (event.deltaY > 0 && !questionActive && !inFinalPhase) { // Só permite deslizar se a tela de pergunta não estiver ativa e não estiver na fase final
         swipeCount = (swipeCount % 5) + 1; // Alterna entre 1 e 5
         updateCameraDisplay();
     }
@@ -67,7 +82,7 @@ function handleTouchMove(event) {
 }
 
 function handleTouchEnd() {
-    if (touchStartY - touchEndY > 50 && !questionActive) { // Só permite deslizar se a tela de pergunta não estiver ativa
+    if (touchStartY - touchEndY > 50 && !questionActive && !inFinalPhase) { // Só permite deslizar se a tela de pergunta não estiver ativa e não estiver na fase final
         swipeCount = (swipeCount % 5) + 1; // Alterna entre 1 e 5
         updateCameraDisplay();
     }
@@ -91,16 +106,57 @@ function addGlitchEffect(element) {
     }, 1000); // Duração do efeito de "glitch"
 }
 
-// Função para mover a frase para uma posição aleatória e trocar a fonte
-function moveQuestionRandomly(question) {
+// Função para centralizar a frase no meio de cada vídeo
+function centerQuestion(question, video) {
+    const videoRect = video.getBoundingClientRect();
+    question.style.left = `${videoRect.left + videoRect.width / 2 - question.offsetWidth / 2}px`;
+    question.style.top = `${videoRect.top + videoRect.height / 2 - question.offsetHeight / 2}px`;
+}
+
+// Função para adicionar e centralizar frases no meio de cada vídeo
+function addCenteredQuestions(videos) {
+    videos.forEach((video, index) => {
+        const question = document.createElement('div');
+        question.textContent = "ESSE É VOCÊ?";
+        question.className = 'question';
+        question.style.fontFamily = 'Arial, sans-serif';
+        question.style.fontSize = '36px'; // Tamanho da fonte diminuído
+        question.style.backgroundColor = 'transparent';
+        cameraContainer.appendChild(question);
+        question.style.visibility = 'visible';
+        centerQuestion(question, video);
+    });
+}
+
+// Função para adicionar frases uma após a outra em cantos aleatórios da tela
+function addQuestionsGradually(questions, count) {
+    for (let i = 0; i < count; i++) {
+        const question = document.createElement('div');
+        question.textContent = "ESSE É VOCÊ?";
+        question.className = 'question';
+        cameraContainer.appendChild(question);
+        questions.push(question);
+        setTimeout(() => {
+            question.style.visibility = 'visible';
+            placeQuestionRandomly(question, i);
+        }, i * 250); // Adiciona a próxima pergunta após 250ms
+    }
+}
+
+// Função para posicionar a frase em um canto aleatório da tela
+function placeQuestionRandomly(question, index) {
     const maxWidth = window.innerWidth - question.offsetWidth;
     const maxHeight = window.innerHeight - question.offsetHeight;
     const randomX = Math.floor(Math.random() * maxWidth);
     const randomY = Math.floor(Math.random() * maxHeight);
     const randomFont = fonts[Math.floor(Math.random() * fonts.length)];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    const randomTextColor = textColors[colors.indexOf(randomColor)];
     question.style.left = `${randomX}px`;
     question.style.top = `${randomY}px`;
     question.style.fontFamily = randomFont;
+    question.style.backgroundColor = randomColor;
+    question.style.color = randomTextColor;
 }
 
 // Função para atualizar a exibição da câmera
@@ -109,6 +165,8 @@ function updateCameraDisplay() {
 
     // Remove todas as classes antigas do layout
     cameraContainer.className = 'layout ' + layouts[swipeCount - 1];
+
+    const videos = [];
 
     // Adiciona as imagens da câmera ao contêiner
     for (let i = 0; i < swipeCount; i++) {
@@ -119,45 +177,36 @@ function updateCameraDisplay() {
         videoClone.style.width = `${100 / swipeCount}%`; // Divide o espaço igualmente
         videoClone.style.height = '100%'; // Ocupa toda a altura
         cameraContainer.appendChild(videoClone);
+        videos.push(videoClone);
     }
 
-    // Adiciona a pergunta "ESSE É VOCÊ?" após a quinta deslizada
+    // Adiciona as perguntas "ESSE É VOCÊ?" no meio de cada vídeo
     if (swipeCount === 5) {
-        const question = document.createElement('div');
-        question.textContent = "ESSE É VOCÊ?";
-        question.className = 'question'; // Aplica a classe question
-        cameraContainer.appendChild(question);
+        inFinalPhase = true; // Indica que estamos na fase final
+        addCenteredQuestions(videos);
 
-        questionActive = true; // Define que a tela de pergunta está ativa
-
-        // Função para piscar a frase em locais aleatórios
-        function blinkQuestion() {
-            question.style.visibility = 'hidden'; // Esconde a frase
-            setTimeout(() => {
-                moveQuestionRandomly(question);
-                question.style.visibility = 'visible'; // Mostra a frase
-            }, 100); // Intervalo de 100ms
-        }
-
-        // Chama a função blinkQuestion a cada 500ms
-        const blinkInterval = setInterval(blinkQuestion, 500);
-
-        // Transição da tela final para o início após 3 segundos
+        // Adiciona mais 10 frases gradualmente após 2 segundos
+        const questions = [];
         setTimeout(() => {
-            clearInterval(blinkInterval); // Para o intervalo de piscar
+            addQuestionsGradually(questions, 10);
+        }, 2000);
+
+        // Transição da tela final para o início após 5 segundos
+        setTimeout(() => {
+            questions.forEach(question => question.style.visibility = 'hidden');
             questionActive = false; // Define que a tela de pergunta não está mais ativa
+            inFinalPhase = false; // Sai da fase final
             swipeCount = 1;
             updateCameraDisplay();
-        }, 3000); // 3 segundos
+        }, 5000); // 5 segundos
     }
 }
 
 // Impede que o clique nos botões propague para o documento
 document.querySelectorAll('.button-container button').forEach(button => {
     button.addEventListener('click', (event) => {
-        event.stopPropagation(); // Impede a propagação do evento
+        event.stopPropagation();
     });
-    // Adiciona atributos de acessibilidade
     button.setAttribute('aria-label', button.textContent.trim());
 });
 
