@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
-    padding: 20px;
+    padding: 10px;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
@@ -16,25 +16,32 @@
     border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     object-fit: cover; /* Garante que o vídeo preencha o espaço */
+    flex: 1 1 100%; /* Permite que os vídeos se ajustem de maneira flexível */
+    height: 100%;
 }
 
 /* Layouts específicos */
+
+/* TikTok: Vídeo ocupa a tela toda */
 .tiktok-layout video {
-    width: 100%; /* Vídeo ocupa a tela toda */
+    width: 100%; 
 }
 
+/* Reels: Dois vídeos lado a lado */
 .reels-layout video {
     width: 48%;
 }
 
+/* Shorts: Três vídeos lado a lado */
 .shorts-layout video {
     width: 32%;
 }
 
+/* Kwai: Disposição em grid de 2x2 */
 .kwai-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 5px;
 }
 
@@ -66,4 +73,16 @@
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     font-size: 20px;
+}
+
+@media (max-width: 768px) {
+    /* Ajuste para dispositivos móveis */
+    .button-container {
+        right: 10px; /* Ajuste para garantir que os botões não fiquem sobre a borda */
+        bottom: 10px;
+    }
+    .tiktok-layout video, .reels-layout video, .shorts-layout video, .kwai-layout video {
+        width: 100%;
+        height: auto; /* Ajuste a altura automaticamente para se adaptar à largura */
+    }
 }
