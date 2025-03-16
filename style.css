@@ -103,3 +103,27 @@
     80% { transform: translate(2px, 2px); }
     100% { transform: translate(0); }
 }
+
+/* Estilo para a frase "ESSE É VOCÊ?" */
+.question {
+    position: absolute;
+    font-size: 48px; /* Tamanho maior */
+    font-weight: bold; /* Texto mais grosso */
+    color: white;
+    text-align: center;
+    padding: 20px;
+    background-color: #00ff00; /* Verde mais claro */
+    font-family: 'Courier New', Courier, monospace; /* Fonte mais chamativa */
+    text-transform: uppercase; /* Caixa alta */
+    visibility: hidden; /* Inicialmente invisível */
+    animation: glitch-bg 1s steps(1, end) infinite; /* Troca rápida sem transição suave */
+}
+
+/* Animação de troca de cores */
+@keyframes glitch-bg {
+    0% { background-color: #00ff00; } /* Verde mais claro */
+    25% { background-color: #ff1493; } /* Rosa mais forte */
+    50% { background-color: white; }
+    75% { background-color: black; }
+    100% { background-color: #00ff00; } /* Verde mais claro */
+}
