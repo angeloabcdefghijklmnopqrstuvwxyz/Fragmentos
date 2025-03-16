@@ -33,6 +33,10 @@ const layouts = ['tiktok-layout', 'reels-layout', 'shorts-layout', 'kwai-layout'
 // Variável para contar quantas vezes o usuário deslizou ou clicou
 let swipeCount = 1; // Começa com 1 para exibir a câmera ao carregar
 
+// Variáveis para armazenar a posição inicial do toque
+let touchStartY = 0;
+let touchEndY = 0;
+
 // Função para detectar deslize para baixo
 function handleSwipe(event) {
     if (event.deltaY > 0) {
@@ -41,9 +45,29 @@ function handleSwipe(event) {
     }
 }
 
+// Funções para detectar deslize em dispositivos móveis
+function handleTouchStart(event) {
+    touchStartY = event.touches[0].clientY;
+}
+
+function handleTouchMove(event) {
+    touchEndY = event.touches[0].clientY;
+}
+
+function handleTouchEnd() {
+    if (touchStartY - touchEndY > 50) { // Verifica se houve um deslize significativo
+        swipeCount = (swipeCount % 5) + 1; // Alterna entre 1 e 5
+        updateCameraDisplay();
+    }
+}
+
 // Adiciona eventos de deslize para baixo
 document.addEventListener('wheel', handleSwipe); // Para PC
-document.addEventListener('touchmove', handleSwipe); // Para celular
+
+// Adiciona eventos de toque para dispositivos móveis
+document.addEventListener('touchstart', handleTouchStart);
+document.addEventListener('touchmove', handleTouchMove);
+document.addEventListener('touchend', handleTouchEnd);
 
 // Função para adicionar o efeito de "glitch"
 function addGlitchEffect(element) {
