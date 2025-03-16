@@ -33,23 +33,14 @@ const layouts = ['tiktok-layout', 'reels-layout', 'shorts-layout', 'kwai-layout'
 // Variável para contar quantas vezes o usuário deslizou ou clicou
 let swipeCount = 1; // Começa com 1 para exibir a câmera ao carregar
 
-// Função para detectar o deslizar ou clicar
-function handleInteraction(event) {
-    if (event.type === 'touchmove' || event.type === 'touchstart') {
-        // Para toque (dispositivo móvel), verifica a direção do deslizar
-        if (event.touches[0].clientY < window.innerHeight / 2) {
-            swipeCount = (swipeCount % 4) + 1; // Alterna entre 1 e 4
-        }
-    } else {
-        // Para clique (desktop)
-        swipeCount = (swipeCount % 4) + 1; // Alterna entre 1 e 4
-    }
+// Função para detectar toque ou clique
+function handleInteraction() {
+    swipeCount = (swipeCount % 4) + 1; // Alterna entre 1 e 4
     updateCameraDisplay();
 }
 
 // Adiciona eventos de toque e clique
 document.addEventListener('touchstart', handleInteraction); // Para celular
-document.addEventListener('touchmove', handleInteraction);  // Para celular
 document.addEventListener('click', handleInteraction); // Para PC
 
 // Função para atualizar a exibição da câmera
