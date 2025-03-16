@@ -66,6 +66,8 @@ document.querySelectorAll('.button-container button').forEach(button => {
     button.addEventListener('click', (event) => {
         event.stopPropagation(); // Impede a propagação do evento
     });
+    // Adiciona atributos de acessibilidade
+    button.setAttribute('aria-label', button.textContent.trim());
 });
 
 // Inicia a câmera quando a página carregar
