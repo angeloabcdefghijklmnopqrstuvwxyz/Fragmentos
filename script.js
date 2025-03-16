@@ -142,13 +142,13 @@ function updateCameraDisplay() {
         // Chama a função blinkQuestion a cada 500ms
         const blinkInterval = setInterval(blinkQuestion, 500);
 
-        // Transição da tela final para o início após 2,75 segundos
+        // Transição da tela final para o início após 3 segundos
         setTimeout(() => {
             clearInterval(blinkInterval); // Para o intervalo de piscar
             questionActive = false; // Define que a tela de pergunta não está mais ativa
             swipeCount = 1;
             updateCameraDisplay();
-        }, 2750); // 2,75 segundos
+        }, 3000); // 3 segundos
     }
 }
 
