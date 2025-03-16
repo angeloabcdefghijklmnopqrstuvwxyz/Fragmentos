@@ -55,7 +55,7 @@ function handleTouchMove(event) {
 }
 
 function handleTouchEnd() {
-    if (touchStartY - touchEndY > 50) { // Verifica se houve um deslize significativo
+    if (touchStartY - touchEndY > 50) { // Verifica se houve um deslize significativo para cima
         swipeCount = (swipeCount % 5) + 1; // Alterna entre 1 e 5
         updateCameraDisplay();
     }
@@ -96,7 +96,7 @@ function updateCameraDisplay() {
         cameraContainer.appendChild(videoClone);
     }
 
-    // Adiciona a pergunta "Esse é você?" após a quarta deslizada
+    // Adiciona a pergunta "Esse é você?" após a quinta deslizada
     if (swipeCount === 5) {
         const question = document.createElement('div');
         question.textContent = "Esse é você?";
