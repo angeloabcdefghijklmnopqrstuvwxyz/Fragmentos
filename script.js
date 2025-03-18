@@ -216,7 +216,6 @@ document.querySelectorAll('.button-container button').forEach(button => {
             button.classList.remove('button-click');
         }, 300); // Duração da animação
     });
-    button.setAttribute('aria-label', button.textContent.trim());
 });
 
 // Inicia a câmera quando a página carregar
