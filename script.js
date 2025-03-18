@@ -6,6 +6,7 @@ const video = document.createElement('video');
 video.id = "camera";
 video.autoplay = true;
 video.playsInline = true; // Evita problemas no iOS
+video.style.transform = 'scaleX(-1)'; // Corrige o espelhamento
 cameraContainer.appendChild(video);
 
 // Conjunto de fontes e cores para as frases
@@ -120,8 +121,9 @@ function addCenteredQuestions(videos) {
         question.textContent = "ESSE É VOCÊ?";
         question.className = 'question';
         question.style.fontFamily = 'Arial, sans-serif';
-        question.style.fontSize = '36px'; // Tamanho da fonte diminuído
+        question.style.fontSize = '18px'; // Tamanho da fonte diminuído
         question.style.backgroundColor = 'transparent';
+        video.style.transform = 'scaleX(-1)'; // Corrige o espelhamento
         cameraContainer.appendChild(question);
         question.style.visibility = 'visible';
         centerQuestion(question, video);
@@ -174,6 +176,7 @@ function updateCameraDisplay() {
         videoClone.srcObject = video.srcObject;
         videoClone.autoplay = true;
         videoClone.playsInline = true;
+        videoClone.style.transform = 'scaleX(-1)'; // Corrige o espelhamento
         videoClone.style.width = `${100 / swipeCount}%`; // Divide o espaço igualmente
         videoClone.style.height = '100%'; // Ocupa toda a altura
         cameraContainer.appendChild(videoClone);
