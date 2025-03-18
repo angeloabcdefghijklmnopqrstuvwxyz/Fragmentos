@@ -141,7 +141,7 @@ function addQuestionsGradually(questions, count) {
         setTimeout(() => {
             question.style.visibility = 'visible';
             placeQuestionRandomly(question, i);
-        }, i * 250); // Adiciona a próxima pergunta após 250ms
+        }, i * 100); // Adiciona a próxima pergunta após 100ms
     }
 }
 
@@ -188,10 +188,10 @@ function updateCameraDisplay() {
         inFinalPhase = true; // Indica que estamos na fase final
         addCenteredQuestions(videos);
 
-        // Adiciona mais 10 frases gradualmente após 2 segundos
+        // Adiciona mais 20 frases gradualmente após 2 segundos
         const questions = [];
         setTimeout(() => {
-            addQuestionsGradually(questions, 10);
+            addQuestionsGradually(questions, 20);
         }, 2000);
 
         // Transição da tela final para o início após 5 segundos
