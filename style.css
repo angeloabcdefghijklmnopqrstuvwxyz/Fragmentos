@@ -109,7 +109,7 @@
     100% { transform: translate(0); }
 }
 
-/* Estilo para a frase "ESSE É VOCÊ?" */
+/* Estilo para a frase "ESTE É VOCÊ?" */
 .question {
     position: absolute;
     font-size: 8px; /* Tamanho menor */

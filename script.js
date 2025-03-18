@@ -118,7 +118,7 @@ function centerQuestion(question, video) {
 function addCenteredQuestions(videos) {
     videos.forEach((video, index) => {
         const question = document.createElement('div');
-        question.textContent = "ESSE É VOCÊ?";
+        question.textContent = "ESTE É VOCÊ?";
         question.className = 'question';
         question.style.fontFamily = 'Arial, sans-serif';
         question.style.fontSize = '8px'; // Tamanho da fonte diminuído para 8px
@@ -134,7 +134,7 @@ function addCenteredQuestions(videos) {
 function addQuestionsGradually(questions, count) {
     for (let i = 0; i < count; i++) {
         const question = document.createElement('div');
-        question.textContent = "ESSE É VOCÊ?";
+        question.textContent = "ESTE É VOCÊ?";
         question.className = 'question question-background'; // Adiciona classe para ajuste no celular
         cameraContainer.appendChild(question);
         questions.push(question);
@@ -185,7 +185,7 @@ function updateCameraDisplay() {
         videos.push(videoClone);
     }
 
-    // Adiciona as perguntas "ESSE É VOCÊ?" no meio de cada vídeo
+    // Adiciona as perguntas "ESTE É VOCÊ?" no meio de cada vídeo
     if (swipeCount === 5) {
         inFinalPhase = true; // Indica que estamos na fase final
         addCenteredQuestions(videos);
