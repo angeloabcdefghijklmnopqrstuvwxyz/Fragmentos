@@ -121,7 +121,7 @@ function addCenteredQuestions(videos) {
         question.textContent = "ESSE É VOCÊ?";
         question.className = 'question';
         question.style.fontFamily = 'Arial, sans-serif';
-        question.style.fontSize = '18px'; // Tamanho da fonte diminuído
+        question.style.fontSize = '8px'; // Tamanho da fonte diminuído para 8px
         question.style.backgroundColor = 'transparent';
         video.style.transform = 'scaleX(-1)'; // Corrige o espelhamento
         cameraContainer.appendChild(question);
@@ -154,9 +154,11 @@ function placeQuestionRandomly(question, index) {
     const randomFont = fonts[Math.floor(Math.random() * fonts.length)];
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     const randomTextColor = textColors[colors.indexOf(randomColor)];
+    const randomFontSize = Math.floor(Math.random() * (50 - 32 + 1)) + 32; // Tamanho da fonte aleatório entre 32px e 50px
     question.style.left = `${randomX}px`;
     question.style.top = `${randomY}px`;
     question.style.fontFamily = randomFont;
+    question.style.fontSize = `${randomFontSize}px`;
     question.style.backgroundColor = randomColor;
     question.style.color = randomTextColor;
 }
@@ -188,10 +190,10 @@ function updateCameraDisplay() {
         inFinalPhase = true; // Indica que estamos na fase final
         addCenteredQuestions(videos);
 
-        // Adiciona mais 20 frases gradualmente após 2 segundos
+        // Adiciona mais 50 frases gradualmente após 2 segundos
         const questions = [];
         setTimeout(() => {
-            addQuestionsGradually(questions, 20);
+            addQuestionsGradually(questions, 50);
         }, 2000);
 
         // Transição da tela final para o início após 5 segundos

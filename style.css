@@ -107,7 +107,7 @@
 /* Estilo para a frase "ESSE É VOCÊ?" */
 .question {
     position: absolute;
-    font-size: 18px; /* Tamanho menor */
+    font-size: 8px; /* Tamanho menor */
     font-weight: bold; /* Texto mais grosso */
     color: white;      /* Texto branco por padrão */
     text-align: center;
