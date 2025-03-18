@@ -135,7 +135,7 @@ function addQuestionsGradually(questions, count) {
     for (let i = 0; i < count; i++) {
         const question = document.createElement('div');
         question.textContent = "ESSE É VOCÊ?";
-        question.className = 'question';
+        question.className = 'question question-background'; // Adiciona classe para ajuste no celular
         cameraContainer.appendChild(question);
         questions.push(question);
         setTimeout(() => {
@@ -211,6 +211,10 @@ function updateCameraDisplay() {
 document.querySelectorAll('.button-container button').forEach(button => {
     button.addEventListener('click', (event) => {
         event.stopPropagation();
+        button.classList.add('button-click');
+        setTimeout(() => {
+            button.classList.remove('button-click');
+        }, 300); // Duração da animação
     });
     button.setAttribute('aria-label', button.textContent.trim());
 });

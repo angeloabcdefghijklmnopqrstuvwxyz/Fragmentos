@@ -88,6 +88,11 @@
         height: 40px;
         font-size: 16px;
     }
+
+    /* Ajusta o tamanho das frases sem fundo no celular */
+    .question {
+        font-size: 5px; /* Tamanho menor para caber nas câmeras */
+    }
 }
 
 /* Estilo do efeito de "glitch" */
@@ -115,4 +120,22 @@
     font-family: Arial, sans-serif; /* Fonte Arial */
     text-transform: uppercase; /* Caixa alta */
     visibility: hidden; /* Inicialmente invisível */
+}
+
+/* Ajusta o tamanho das frases com fundo no celular */
+@media (max-width: 600px) {
+    .question-background {
+        font-size: 18px; /* Aumenta o tamanho da fonte das frases com fundo */
+    }
+}
+
+/* Animação para os botões de emoji */
+@keyframes button-click {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.button-click {
+    animation: button-click 0.3s ease;
 }
